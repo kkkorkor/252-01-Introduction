@@ -29,7 +29,11 @@ void legacy_make_slug(const char *name, char *out) {
        - copy other characters as-is
     */
     for (i = 0; name[i] != '\0'; i++) {
-        out[i] = name[i];
+        if(name[i] == ' '){
+            out[i] = '_';
+        }else{
+            out[i] = tolower((unsigned char)name[i]);
+        }  
     }
     out[i] = '\0';
 }
