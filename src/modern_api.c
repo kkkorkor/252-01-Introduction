@@ -25,22 +25,23 @@ int modern_parse_year(const char *record, int *out_year) {
 
     if(colon == NULL) return -1;
 
-    errorno = 0;
+    errno = 0;
     year = strtol(colon + 1, &endptr, 10);
 
     if(endptr == colon + 1){
         return -1;
     }
 
-    if(errorno == ERANGE) return -1;
+    if(errno == ERANGE) return -1;
 
     if(*endptr !='\0'){
         return -1;
     }
 
-    if(year < int_min || year > int_max) return -1;
+    if(year < INT_MIN || year > INT_MAX) return -1;
     
-    *out_year = int(year);
+    *out_year = (int)year;
+    return 0;
 }
 
 int modern_make_slug(const char *name, char *out, size_t out_size) {
@@ -60,10 +61,12 @@ int modern_make_slug(const char *name, char *out, size_t out_size) {
         if(i+1 >= out_size){
             return -1;
         }
-    }
 
-    if (name[i] != '\0') {
-        return -1;
+        if (name[i] == ' ') {
+            out[i] = '_';
+        } else {
+            out[i] = tolower((unsigned char)name[i]);
+        }
     }
 
     out[i] = '\0';
