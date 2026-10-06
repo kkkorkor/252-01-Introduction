@@ -49,9 +49,10 @@ int main(int argc, char **argv) {
         row++;
         snprintf(record_copy, sizeof(record_copy), "%s", line);
 
-        colon = strchr(line, ':');
+        colon = strchr(line, ':'); //strchr for find character in string
         if (colon != NULL) {
-            *colon = '\0';
+            *colon = '\0'; 
+            // ':' replace with '\0', so from "Ada Lovelace\01815" will cut to just "Ada Lovelace"
         }
         name = line;
 
