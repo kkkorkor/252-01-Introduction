@@ -4,7 +4,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
-#include <limits.h>
+#include <limits.h> //to use INT_MIN & INT_MAX
 
 int modern_parse_year(const char *record, int *out_year) {
     /* TODO(student): strict parsing with strtol
@@ -38,7 +38,7 @@ int modern_parse_year(const char *record, int *out_year) {
         return -1;
     }
 
-    if(year < INT_MIN || year > INT_MAX) return -1;
+    if(year < INT_MIN || year > INT_MAX) return -1; //check from long --> int
     
     *out_year = (int)year;
     return 0;
@@ -58,7 +58,7 @@ int modern_make_slug(const char *name, char *out, size_t out_size) {
     }
 
     for (i = 0; name[i] != '\0'; i++) {
-        if(i+1 >= out_size){
+        if(i+1 >= out_size){ //i+1 because we have '\0' at the end
             return -1;
         }
 
